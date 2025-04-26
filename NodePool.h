@@ -13,6 +13,7 @@
 
 #ifndef NODEPOOL_H
 #define NODEPOOL_H
+using namespace std;
 
 #include <stdexcept>  // For exception handling
 
@@ -114,7 +115,7 @@ void NodePool<ElementType, NUM_NODES>::initializePool() {
 template<typename ElementType, int NUM_NODES>
 int NodePool<ElementType, NUM_NODES>::newNode() {
     if (freeListHead == NULL_VALUE)
-        throw std::overflow_error("NodePool: out of free nodes");
+        throw overflow_error("NodePool: out of free nodes");
     int idx = freeListHead;
     freeListHead = pool[idx].next;
     pool[idx].next = NULL_VALUE;
@@ -124,7 +125,7 @@ int NodePool<ElementType, NUM_NODES>::newNode() {
 template<typename ElementType, int NUM_NODES>
 void NodePool<ElementType, NUM_NODES>::deleteNode(int idx) {
     if (idx < 0 || idx >= NUM_NODES)
-        throw std::out_of_range("NodePool: deleteNode index out of range");
+        throw out_of_range("NodePool: deleteNode index out of range");
     pool[idx].next = freeListHead;
     freeListHead = idx;
 }
