@@ -4,7 +4,7 @@
 #include "List.h"
 
 void printMenu() {
-    std::cout << "\n=== Array‑Based Linked List Tester ===\n"
+  cout << "\n=== Array‑Based Linked List Tester ===\n"
               << "1. Insert Front\n"
               << "2. Delete Front\n"
               << "3. Insert After\n"
