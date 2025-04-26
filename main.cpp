@@ -19,70 +19,62 @@ void printMenu() {
               << "Choice: ";
 }
 
-void printList(const List<std::string>& lst) {
-    std::cout << "List contents: ";
-    lst.traverse([](const std::string& s){
-        std::cout << s << " ";
-    });
-    std::cout << "\nFree‑list head index: "
-              << lst.getFreeListHead()
-              << "\n";
-}
+
 
 int main() {
-    List<std::string> lst;
+    List<string> lst;
     int choice;
 
     do {
         printMenu();
-        if (!(std::cin >> choice)) break;
-        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        if (!(cin >> choice)) break;
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
         try {
             switch (choice) {
                 case 1: {
-                    std::cout << "Enter value to insert at front: ";
-                    std::string v; std::getline(std::cin, v);
+                    cout << "Enter value to insert at front: ";
+                    string v; getline(cin, v);
                     lst.insertFront(v);
-                    printList(lst);
+                   cout<<lst;
                     break;
                 }
                 case 2:
                     lst.deleteFront();
-                    printList(lst);
+                    cout<<lst;
                     break;
 
                 case 3: {
-                    std::cout << "Enter position index: ";
-                    int pos; std::cin >> pos;
-                    std::cin.ignore();
-                    std::cout << "Enter value to insert after " << pos << ": ";
-                    std::string v; std::getline(std::cin, v);
+                    cout << "Enter position index: ";
+                    int pos; cin >> pos;
+                    cin.ignore();
+                    cout << "Enter value to insert after " << pos << ": ";
+                    string v; getline(cin, v);
                     lst.insertAfter(pos, v);
-                    printList(lst);
+                    cout<<lst;
                     break;
                 }
                 case 4: {
-                    std::cout << "Enter position index to delete after: ";
-                    int pos; std::cin >> pos;
-                    std::cin.ignore();
+                    cout << "Enter position index to delete after: ";
+                    int pos; cin >> pos;
+                    cin.ignore();
                     lst.deleteAfter(pos);
-                    printList(lst);
+                    cout<<lst;
                     break;
                 }
                 case 5:
-                    printList(lst);
+                    cout<<lst;
                     break;
 
                 case 6:
-                    std::cout << "Size: " << lst.size() << "\n";
+                    cout << "Size: " << lst.size() << "\n";
                     break;
 
                 case 7: {
-                    std::cout << "Enter value to find: ";
-                    std::string v; std::getline(std::cin, v);
+                    cout << "Enter value to find: ";
+                    string v;getline(cin, v);
                     int idx = lst.find(v);
-                    if (idx == List<std::string>::NULL_VALUE)
+                    if (idx == List<string>::NULL_VALUE)
                         std::cout << "Value not found.\n";
                     else
                         std::cout << "Found at index: " << idx << "\n";
@@ -90,32 +82,32 @@ int main() {
                 }
                 case 8:
                     lst.clear();
-                    printList(lst);
+                    cout<<lst;
                     break;
 
                 case 9: {
-                    std::cout << "Enter value to insert sorted: ";
-                    std::string v; std::getline(std::cin, v);
+                    cout << "Enter value to insert sorted: ";
+                    string v; getline(cin, v);
                     lst.insertSorted(v);
-                    printList(lst);
+                    cout<<lst;
                     break;
                 }
                 case 10: {
-                    std::cout << "Enter value to remove: ";
-                    std::string v; std::getline(std::cin, v);
+                    cout << "Enter value to remove: ";
+                    string v; getline(cin, v);
                     bool removed = lst.remove(v);
-                    std::cout << (removed ? "Removed.\n" : "Not found.\n");
-                    printList(lst);
+                    cout << (removed ? "Removed.\n" : "Not found.\n");
+                    cout<<lst;
                     break;
                 }
                 case 0:
-                    std::cout << "Exiting.\n";
+                    cout << "Exiting.\n";
                     break;
                 default:
-                    std::cout << "Invalid choice.\n";
+                    cout << "Invalid choice.\n";
             }
-        } catch (const std::exception& e) {
-            std::cout << "Error: " << e.what() << "\n";
+        } catch (const exception& e) {
+            cout << "Error: " << e.what() << "\n";
         }
     } while (choice != 0);
 
