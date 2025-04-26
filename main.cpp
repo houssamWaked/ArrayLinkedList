@@ -4,7 +4,7 @@
 #include "List.h"
 
 void printMenu() {
-  cout << "\n=== Array‑Based Linked List Tester ===\n"
+  cout << "\n=== ArrayBased Linked List Tester ===\n"
               << "1. Insert Front\n"
               << "2. Delete Front\n"
               << "3. Insert After\n"
@@ -75,9 +75,9 @@ int main() {
                     string v;getline(cin, v);
                     int idx = lst.find(v);
                     if (idx == List<string>::NULL_VALUE)
-                        std::cout << "Value not found.\n";
+                       cout << "Value not found.\n";
                     else
-                        std::cout << "Found at index: " << idx << "\n";
+                        cout << "Found at index: " << idx << "\n";
                     break;
                 }
                 case 8:
