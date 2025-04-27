@@ -272,6 +272,9 @@ void List<T, NUM_NODES>::deleteFront() {
 
 template<typename T, int NUM_NODES>
 void List<T, NUM_NODES>::insertAfter(int pos, const T& item) {
+        if (isEmpty()) {
+            throw underflow_error("List::insertAfter() on empty list ");
+        }
     if (pos == NULL_VALUE || pos < 0 || pos >= NUM_NODES)
         throw out_of_range("List::insertAfter invalid position");
     int idx = pool.newNode();
@@ -282,6 +285,9 @@ void List<T, NUM_NODES>::insertAfter(int pos, const T& item) {
 
 template<typename T, int NUM_NODES>
 void List<T, NUM_NODES>::deleteAfter(int pos) {
+    if (isEmpty()) {
+        throw underflow_error("List::deleteAfter() on empty list");
+    }
     if (pos == NULL_VALUE || pos < 0 || pos >= NUM_NODES)
         throw out_of_range("List::deleteAfter invalid position");
     int tgt = pool.data()[pos].next;
@@ -348,10 +354,10 @@ void List<T, NUM_NODES>::printList() const {
     cout << "\nFree-list head index: " << pool.getFreeListHead() << "\n";
 }
 
-// Provide operator<< as a standalone template (must be after the class)
+
 template<typename T, int NUM_NODES>
 ostream& operator<<(ostream& os, const List<T, NUM_NODES>& lst) {
-    // reuse printList logic but direct to os
+
     lst.traverse([&os](const T& s) {
         os << s << " ";
     });
