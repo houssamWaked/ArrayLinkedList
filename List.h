@@ -177,6 +177,20 @@ public:
       Precondition:  None
       Postcondition: List elements and free list head are printed to cout.
     ----------------------------------------------------------------------*/
+    /***** sortList *****/
+    void sortList();
+    /*----------------------------------------------------------------------
+      Sorts the elements of the list in ascending order.
+      Precondition:  None.
+      Postcondition: The list is sorted in ascending order.
+    ----------------------------------------------------------------------*/
+    /***** unique *****/
+    void unique();
+    /*----------------------------------------------------------------------
+      Removes duplicate elements from the list, keeping only first occurrences.
+      Precondition:  None
+      Postcondition: List contains no duplicate elements.
+    ----------------------------------------------------------------------*/
 
 private:
     /***** insertBack *****/
@@ -354,10 +368,50 @@ void List<T, NUM_NODES>::printList() const {
     cout << "\nFree-list head index: " << pool.getFreeListHead() << "\n";
 }
 
+template<typename T, int NUM_NODES>
+void List<T, NUM_NODES>::sortList() {
+    if (isEmpty())
+        throw underflow_error("List::sortList() on empty list");
+    if ( pool.data()[head].next == NULL_VALUE)
+        return;
+
+    for (int i = head; i != NULL_VALUE; i = pool.data()[i].next) {
+        for (int j = pool.data()[i].next; j != NULL_VALUE; j = pool.data()[j].next) {
+            if (pool.data()[j].data < pool.data()[i].data) {
+                T temp = pool.data()[i].data;
+                pool.data()[i].data = pool.data()[j].data;
+                pool.data()[j].data = temp;
+            }
+        }
+    }
+}
+
+template<typename T, int NUM_NODES>
+void List<T, NUM_NODES>::unique() {
+    if (isEmpty() || pool.data()[head].next == NULL_VALUE)
+        return;
+
+    int outer = head;
+    while (outer != NULL_VALUE) {
+        int prev = outer;
+        int curr = pool.data()[outer].next;
+        while (curr != NULL_VALUE) {
+            if (pool.data()[curr].data == pool.data()[outer].data) {
+                pool.data()[prev].next = pool.data()[curr].next;
+                pool.deleteNode(curr);
+                curr = pool.data()[prev].next;
+            } else {
+                prev = curr;
+                curr = pool.data()[curr].next;
+            }
+        }
+        outer = pool.data()[outer].next;
+    }
+}
+
 
 template<typename T, int NUM_NODES>
 ostream& operator<<(ostream& os, const List<T, NUM_NODES>& lst) {
-
     lst.traverse([&os](const T& s) {
         os << s << " ";
     });

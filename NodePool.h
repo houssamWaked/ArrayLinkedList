@@ -116,18 +116,18 @@ template<typename ElementType, int NUM_NODES>
 int NodePool<ElementType, NUM_NODES>::newNode() {
     if (freeListHead == NULL_VALUE)
         throw overflow_error("NodePool: out of free nodes");
-    int idx = freeListHead;
-    freeListHead = pool[idx].next;
-    pool[idx].next = NULL_VALUE;
-    return idx;
+    int index = freeListHead;
+    freeListHead = pool[index].next;
+    pool[index].next = NULL_VALUE;
+    return index;
 }
 
 template<typename ElementType, int NUM_NODES>
-void NodePool<ElementType, NUM_NODES>::deleteNode(int idx) {
-    if (idx < 0 || idx >= NUM_NODES)
+void NodePool<ElementType, NUM_NODES>::deleteNode(int index) {
+    if (index < 0 || index >= NUM_NODES)
         throw out_of_range("NodePool: deleteNode index out of range");
-    pool[idx].next = freeListHead;
-    freeListHead = idx;
+    pool[index].next = freeListHead;
+    freeListHead = index;
 }
 
 template<typename ElementType, int NUM_NODES>
