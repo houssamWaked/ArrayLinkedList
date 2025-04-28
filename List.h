@@ -1,8 +1,11 @@
 /*-- List.h ---------------------------------------------------------------
 
-  This header file defines the List class for managing a linked list of nodes.
+This header file defines the List class for managing a linked list of nodes.
   Basic operations are:
      Constructor:        Initializes an empty list.
+     Copy Constructor:   Creates a copy of an existing list.
+     Assignment Operator:Assigns one list to another.
+     Destructor:         Cleans up all list resources.
      isEmpty:            Checks if the list is empty.
      traverse:           Traverses and applies a function to each element.
      size:               Returns the number of elements in the list.
@@ -15,10 +18,13 @@
      insertBack:         Inserts an element at the end of the list.
      insertSorted:       Inserts an element in sorted order.
      remove:             Removes a node by its value.
+     sortList:           Sorts the list in ascending order.
+     unique:             Removes duplicate elements from the list.
      getFreeListHead:    Returns the index of the first free node in the pool.
      printList:          Prints list contents to std::cout.
      operator<<:         Prints list contents to any std::ostream.
 -------------------------------------------------------------------------*/
+
 
 #ifndef LIST_H
 #define LIST_H
@@ -204,6 +210,7 @@ private:
     NodePool<T, NUM_NODES> pool;  // Node pool for memory management
     int head;                     // Index of the first node in the list
 };
+
 // Implementation
 
 template<typename T, int NUM_NODES>
